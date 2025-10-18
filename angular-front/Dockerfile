@@ -1,30 +1,20 @@
-# Stage 1: Build Angular app
-FROM node:22 AS build
+FROM node:22
 
-# Set working directory
+# Dossier de travail
 WORKDIR /app
 
-# Copy package files and install dependencies
+# Copie package.json et package-lock.json avant tout
 COPY package*.json ./
-RUN npm install
 
-# Copy source code
+# Installe Angular CLI et les dépendances locales
+RUN npm install -g @angular/cli@19 \
+    && npm install
+
+# Copie le reste du projet
 COPY . .
 
-# Build Angular in production mode
-RUN npx ng build --configuration production
+# Expose le port Angular
+EXPOSE 4200
 
-# Stage 2: Serve with Nginx
-FROM nginx:alpine
-
-# Copy built Angular app to Nginx
-COPY --from=build /app/dist /usr/share/nginx/html
-
-# Optional: Copy custom Nginx config if needed
-# COPY nginx/default.conf /etc/nginx/conf.d/default.conf
-
-# Expose port 80 for frontend
-EXPOSE 80
-
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Lance le serveur Angular
+CMD ["ng", "serve", "--host", "0.0.0.0"]
