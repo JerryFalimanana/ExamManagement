@@ -7,10 +7,12 @@ use Doctrine\DBAL\Types\Types;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ExamRepository;
+use ApiPlatform\Metadata\ApiResource;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 
 #[ORM\Entity(repositoryClass: ExamRepository::class)]
+#[ApiResource]
 class Exam
 {
     #[ORM\Id]
