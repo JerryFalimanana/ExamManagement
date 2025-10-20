@@ -31,7 +31,7 @@ RUN curl -sS https://getcomposer.org/installer | php \
 COPY . .
 
 # Install PHP dependencies
-RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+RUN composer install --optimize-autoloader --no-interaction --no-progress
 
 # Expose Symfony port
 EXPOSE 8000
