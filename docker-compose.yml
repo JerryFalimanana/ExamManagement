@@ -30,7 +30,7 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_DATABASE: exam_management
-      MYSQL_USER: user
+      MYSQL_USER: root
       MYSQL_PASSWORD: password
     ports:
       - "3307:3306"
