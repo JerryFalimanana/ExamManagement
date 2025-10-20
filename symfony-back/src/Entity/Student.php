@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use ApiPlatform\Metadata\Get;
 use Symfony\Component\Uid\Uuid;
 use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Metadata\ApiResource;
