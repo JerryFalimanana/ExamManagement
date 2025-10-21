@@ -1,1 +1,10 @@
-<p>create-modal works!</p>
+<div class="fixed inset-0 bg-black/50 flex justify-center items-center">
+    <div class="bg-white p-6 rounded-lg w-96">
+        <h2 class="text-lg font-bold mb-4">Confirmer l'action</h2>
+        <p>Êtes-vous sûr de vouloir continuer ?</p>
+        <div class="mt-4 flex justify-end gap-2">
+            <button (click)="cancel.emit()" class="px-4 py-2 bg-gray-300 rounded">Annuler</button>
+            <button (click)="confirm.emit()" class="px-4 py-2 bg-blue-500 text-white rounded">Confirmer</button>
+        </div>
+    </div>
+</div>

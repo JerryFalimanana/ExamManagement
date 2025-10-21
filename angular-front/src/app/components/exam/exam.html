@@ -30,7 +30,7 @@ schedule
         </p>
     </div>
     <div class="w-1/2 inline-block">
-        <button type="button" class="flex w-1/4 justify-center float-right rounded-lg bg-orange-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-orange-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
+        <button type="button" (click)="openModal()" class="flex w-1/4 justify-center float-right rounded-lg bg-orange-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-orange-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
             Organiser un examen
         </button>
     </div>
@@ -393,3 +393,10 @@ schedule
         </table>
     </div>
 </div>
+
+<app-create-modal
+    *ngIf="isModalOpen"
+    (confirm)="onConfirm()"
+    (cancel)="onCancel()"
+>
+</app-create-modal>
