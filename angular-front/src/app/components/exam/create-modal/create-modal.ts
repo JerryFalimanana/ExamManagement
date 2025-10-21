@@ -13,4 +13,5 @@ import { CommonModule } from '@angular/common';
 export class CreateModal {
     @Output() confirm = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();
+    today = new Date().toISOString().split('T')[0];
 }
