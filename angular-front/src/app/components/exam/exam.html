@@ -1,24 +1,35 @@
-<span class="material-symbols-outlined">
-check
-</span>
-<span class="material-symbols-outlined">close</span>
-<span class="material-symbols-outlined">
-hardware
-</span>
-<span class="material-symbols-outlined">
-exit_to_app
-</span>
-<span class="material-symbols-outlined">
-list_alt
-</span>
-<span class="material-symbols-outlined">
-task_alt
-</span>
-<span class="material-symbols-outlined">
-schedule
-</span>
+<span class="material-symbols-outlined">exit_to_app</span>
+                <span class="material-symbols-outlined">hardware</span>
+                <span class="material-symbols-outlined">check</span>
 
-<div class="w-3/4 p-0 mt-15 mx-auto">
+<div class="w-3/4 p-0 mt-5 mx-auto">
+    <div class="w-2/3 m-0 p-0 mx-auto border border-gray-400 rounded-lg p-5 mb-10">
+        <h2 class="text-3xl font-semibold text-center">
+            Statictiques des examens
+        </h2>
+        <div class="w-full p-0 m-0 mt-5 grid grid-cols-4 gap-5">
+            <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
+                <h3>Confirmé</h3>
+                <span class="text-[34px] text-green-400">28</span>
+                <span class="material-symbols-outlined text-green-400 float-right" style="font-size: 40px;">task_alt</span>
+            </div>
+            <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
+                <h3>À organiser</h3>
+                <span class="text-[34px] text-orange-400">28</span>
+                <span class="material-symbols-outlined text-orange-400 float-right" style="font-size: 40px;">list_alt</span>
+            </div>
+            <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
+                <h3>Annulé</h3>
+                <span class="text-[34px] text-red-400">28</span>
+                <span class="material-symbols-outlined text-red-400 float-right" style="font-size: 40px;">close</span>
+            </div>
+            <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
+                <h3>En recherche de place</h3>
+                <span class="text-[34px] text-blue-400">28</span>
+                <span class="material-symbols-outlined text-blue-400 float-right" style="font-size: 40px;">schedule</span>
+            </div>
+        </div>
+    </div>
     <div class="w-1/2 inline-block">
         <h2 class="text-3xl font-semibold">
             Mes examens
@@ -28,11 +39,11 @@ schedule
         </p>
     </div>
     <div class="w-1/2 inline-block">
-        <button type="button" (click)="openModal()" class="flex w-1/4 justify-center float-right rounded-lg bg-orange-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-orange-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
+        <button type="button" (click)="openModal()" class="w-50 float-right rounded-lg bg-orange-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-orange-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
             Organiser un examen
         </button>
     </div>
-    <div class="max-h-150 overflow-y-auto mt-5">
+    <div class="max-h-130 overflow-y-auto mt-5">
         <table class="min-w-full">
             <tbody>
                 <tr class="h-[75px] border border-gray-400 rounded-lg flex items-center px-10 text-gray-600 mb-2">
