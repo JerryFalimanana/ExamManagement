@@ -3,16 +3,31 @@
 namespace App\Entity;
 
 use App\Config\ExamStatus;
+use ApiPlatform\Metadata\Get;
+use ApiPlatform\Metadata\Post;
 use Doctrine\DBAL\Types\Types;
+use ApiPlatform\Metadata\Patch;
 use Symfony\Component\Uid\Uuid;
+use ApiPlatform\Metadata\Delete;
 use Doctrine\ORM\Mapping as ORM;
 use App\Repository\ExamRepository;
 use ApiPlatform\Metadata\ApiResource;
+use ApiPlatform\Metadata\GetCollection;
 use Symfony\Bridge\Doctrine\Types\UuidType;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 
 #[ORM\Entity(repositoryClass: ExamRepository::class)]
-#[ApiResource]
+#[ApiResource(
+    operations: [
+        new GetCollection(),
+        new Post(
+            formats: ['json' => ['application/json']]
+        ),
+        new Get(),
+        new Delete(),
+        new Patch(),
+    ]
+)]
 class Exam
 {
     #[ORM\Id]

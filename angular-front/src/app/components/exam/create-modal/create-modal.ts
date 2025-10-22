@@ -51,8 +51,8 @@ export class CreateModal implements OnInit {
     initForm() {
         this.examForm = this.formBuilder.group<ExamForm>(
             {
-                student: new FormControl<string | null>(null, { nonNullable: false, validators: [Validators.required] }),
-                status: new FormControl<string | null>(null, { nonNullable: false, validators: [Validators.required] }),
+                student: new FormControl<string | null>('', { nonNullable: false, validators: [Validators.required] }),
+                status: new FormControl<string | null>('', { nonNullable: false, validators: [Validators.required] }),
                 date: new FormControl<string | null>(null, { nonNullable: false, validators: [Validators.required] }),
                 time: new FormControl<string | null>(null, { nonNullable: false, validators: [Validators.required] }),
                 location: new FormControl<string | null>(null),
@@ -80,7 +80,7 @@ export class CreateModal implements OnInit {
         const location = this.examForm.get('location')?.value;
 
         const exam: PostExamData = {
-            student: student!,
+            student: `/api/students/${student}`,
             status: status!,
             date: date!,
             time: time!,
@@ -95,7 +95,7 @@ export class CreateModal implements OnInit {
             next: (data) => {
               this.students = data;
             },
-            error: (error) => console.error('Erreur lors de la récupération des étudiants', error)
+            error: (error) => console.error(error)
         });
     }
 }

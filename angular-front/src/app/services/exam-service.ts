@@ -12,6 +12,16 @@ export class ExamService {
     ) {}
 
     createExam(exam: PostExamData): Observable<any> {
-        return this.httpClient.post('http://localhost:8000/api/exams', exam);
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+
+        return this.httpClient.post(
+            'http://localhost:8000/api/exams',
+            exam,
+            {
+                headers,
+            },
+        );
     }
 }

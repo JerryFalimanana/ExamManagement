@@ -11,7 +11,7 @@ export const authInterceptor: HttpInterceptorFn = <T>(req: HttpRequest<T>, next:
     return from(tokenService.getToken()).pipe(
         mergeMap((auth: Auth | null) => {
             const headers: Record<string, string> = {};
-            headers['Locale'] = 'fr';console.log(req.url);
+            headers['Locale'] = 'fr';
 
             if (auth?.token && !req.url.includes('/api/login')) {
                 headers['Authorization'] = `Bearer ${auth.token}`;
