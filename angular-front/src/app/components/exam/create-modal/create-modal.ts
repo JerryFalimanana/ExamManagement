@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { FormBuilder, FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { ExamForm } from '../../../interfaces/exam-form';
 import { RequiredFieldPipe } from '../../../required-field-pipe';
+import { PostExamData } from '../../../interfaces/post-exam-data';
+import { ExamService } from '../../../services/exam-service';
+import { HttpClientModule } from '@angular/common/http';
 
 enum FormField {
     student = 'student',
@@ -17,13 +20,13 @@ enum FormField {
     imports: [
       CommonModule,
       ReactiveFormsModule,
-      RequiredFieldPipe
+      RequiredFieldPipe,
+      HttpClientModule
     ],
     templateUrl: './create-modal.html',
     styleUrl: './create-modal.scss'
 })
 export class CreateModal implements OnInit {
-    @Output() confirm = new EventEmitter<void>();
     @Output() cancel = new EventEmitter<void>();
     today = new Date().toISOString().split('T')[0];
 
@@ -33,6 +36,7 @@ export class CreateModal implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
+        private examService: ExamService
     ) {}
 
     ngOnInit() {
@@ -49,5 +53,35 @@ export class CreateModal implements OnInit {
                 location: new FormControl<string | null>(null),
             }
         );
+    }
+
+    onSubmit() {
+        if (this.examForm.invalid) return;
+        const examen = this.getExamData();
+
+        this.examService.createExam(examen)
+            .subscribe({
+              next: () => {
+                
+              }
+          });
+    }
+
+    getExamData(): PostExamData {
+        const student = this.examForm.get('student')?.value;
+        const status = this.examForm.get('status')?.value;
+        const date = this.examForm.get('date')?.value;
+        const time = this.examForm.get('time')?.value;
+        const location = this.examForm.get('location')?.value;
+
+        const exam: PostExamData = {
+            student: student!,
+            status: status!,
+            date: date!,
+            time: time!,
+            location: location!,
+        };
+
+        return exam;
     }
 }

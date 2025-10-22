@@ -2,13 +2,15 @@ import { Component } from '@angular/core';
 import { ExamService } from '../../services/exam-service';
 import { CreateModal } from './create-modal/create-modal';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
     selector: 'app-exam',
     standalone: true,
     imports: [
       CreateModal,
-      CommonModule
+      CommonModule,
+      HttpClientModule
     ],
     templateUrl: './exam.html',
     styleUrl: './exam.scss'

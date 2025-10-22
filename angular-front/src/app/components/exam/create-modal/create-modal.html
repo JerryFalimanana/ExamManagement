@@ -3,7 +3,7 @@
         <button (click)="cancel.emit()" class="float-right"><span class="material-symbols-outlined">close</span></button>
         <h2 class="text-2xl text-center font-bold mb-10">Organiser un nouvel examen</h2>
 
-        <form [formGroup]="examForm" (ngSubmit)="confirm.emit()" novalidate>
+        <form [formGroup]="examForm" (ngSubmit)="onSubmit()" novalidate>
             <div class="w-full p-0 mb-5">
                 <div class="w-1/2 pr-3 inline-block">
                     <label for="student" class="block text-sm/6 font-medium text-gray-150">
