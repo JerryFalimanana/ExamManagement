@@ -5,25 +5,44 @@
     </div>
 
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form action="#" method="POST" class="space-y-6">
+        <form class="form-container" [formGroup]="formGroup" (submit)="onSubmit()">
             <div>
                 <label for="email" class="block text-sm/6 font-medium text-gray-150">Email</label>
                 <div class="mt-2">
-                    <input id="email" type="email" name="email" required autocomplete="email" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-gray-500 outline-1 -outline-offset-1 outline-orange/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-500 sm:text-sm/6" />
+                    <input 
+                        id="email" 
+                        type="email" 
+                        name="email" 
+                        formControlName="email"
+                        required 
+                        autocomplete="email" 
+                        class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-gray-500 outline-1 -outline-offset-1 outline-orange/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-500 sm:text-sm/6" />
                 </div>
             </div>
 
-            <div>
+            <div class="mt-5">
                 <div class="flex items-center justify-between">
                     <label for="password" class="block text-sm/6 font-medium text-gray-150">Mot de passe</label>
                 </div>
                 <div class="mt-2">
-                    <input id="password" type="password" name="password" required autocomplete="current-password" class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-gray-500 outline-1 -outline-offset-1 outline-orange/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-500 sm:text-sm/6" />
+                    <input 
+                        id="password" 
+                        type="password" 
+                        name="password" 
+                        formControlName="password"
+                        required 
+                        autocomplete="current-password" 
+                        class="block w-full rounded-md bg-white/5 px-3 py-1.5 text-base text-gray-500 outline-1 -outline-offset-1 outline-orange/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-500 sm:text-sm/6" />
                 </div>
             </div>
 
-            <div>
-                <button type="submit" class="flex w-full justify-center rounded-md bg-orange-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-orange-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">Connexion</button>
+            <div class="mt-5">
+                <button 
+                    [disabled]="disable"
+                    type="submit" 
+                    class="flex w-full justify-center rounded-md bg-orange-500 px-3 py-1.5 text-sm/6 font-semibold text-white hover:bg-orange-400 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-500">
+                        Connexion
+                    </button>
             </div>
         </form>
     </div>

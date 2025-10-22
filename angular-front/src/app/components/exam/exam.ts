@@ -3,6 +3,8 @@ import { ExamService } from '../../services/exam-service';
 import { CreateModal } from './create-modal/create-modal';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
+import { TokenService } from '../../services/token-service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-exam',
@@ -18,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
 export class Exam {
     constructor(
         private examService: ExamService,
+        private tokenService: TokenService,
+        private router: Router,
     ) {}
 
     isModalOpen = false;
@@ -27,12 +31,15 @@ export class Exam {
     }
 
     onConfirm() {
-      console.log('Action confirmée !');
       this.isModalOpen = false;
     }
 
     onCancel() {
-      console.log('Action annulée !');
       this.isModalOpen = false;
+    }
+
+    async logout() {
+        await this.tokenService.clearToken();
+        this.router.navigate(['/login']);
     }
 }

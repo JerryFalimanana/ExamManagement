@@ -56,9 +56,9 @@ export class TokenService {
                 break;
             case 'session':
                 if (json) {
-                  sessionStorage.setItem(this.tokenKey, json);
+                    sessionStorage.setItem(this.tokenKey, json);
                 } else {
-                  sessionStorage.removeItem(this.tokenKey);
+                    sessionStorage.removeItem(this.tokenKey);
                 }
                 break;
             case 'memory':
@@ -73,14 +73,14 @@ export class TokenService {
 
         switch (this.currentStorage) {
             case 'indexeddb':
-              json = await (await this.dbPromise!).get(this.STORE_NAME, this.tokenKey);
-              break;
+                json = await (await this.dbPromise!).get(this.STORE_NAME, this.tokenKey);
+                break;
             case 'session':
-              json = sessionStorage.getItem(this.tokenKey);
-              break;
+                json = sessionStorage.getItem(this.tokenKey);
+                break;
             case 'memory':
-              json = this.inMemoryToken;
-              break;
+                json = this.inMemoryToken;
+                break;
         }
 
         return json ? JSON.parse(json) : null;
