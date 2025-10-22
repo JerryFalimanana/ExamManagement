@@ -18,11 +18,8 @@
                             id="student" 
                             required 
                             class="block w-full h-10 rounded-md bg-white/5 px-3 py-1.5 text-base text-gray-500 outline-1 -outline-offset-1 outline-orange/10 placeholder:text-gray-500 focus:outline-2 focus:-outline-offset-2 focus:outline-orange-500 sm:text-sm/6" >
-                            <option value="1">Le Brown JAMES</option>
-                            <option value="1">Le Brown JAMES</option>
-                            <option value="1">Le Brown JAMES</option>
-                            <option value="1">Le Brown JAMES</option>
-                            <option value="1">Le Brown JAMES</option>
+                            <option value="" disabled selected>Choisir un étudiant</option>
+                            <option *ngFor="let student of students" [value]="student.id">{{ student.name }}</option>
                         </select>
                     </div>
                 </div>

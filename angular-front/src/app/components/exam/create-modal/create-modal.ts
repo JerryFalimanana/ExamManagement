@@ -6,6 +6,8 @@ import { RequiredFieldPipe } from '../../../required-field-pipe';
 import { PostExamData } from '../../../interfaces/post-exam-data';
 import { ExamService } from '../../../services/exam-service';
 import { HttpClientModule } from '@angular/common/http';
+import { Student } from '../../../interfaces/Student';
+import { StudentService } from '../../../services/student-service';
 
 enum FormField {
     student = 'student',
@@ -31,16 +33,19 @@ export class CreateModal implements OnInit {
     today = new Date().toISOString().split('T')[0];
 
     examForm!: FormGroup<ExamForm>;
+    students: Student[] = [];
 
     protected readonly FormFields = FormField;
 
     constructor(
         private formBuilder: FormBuilder,
-        private examService: ExamService
+        private examService: ExamService,
+        private studentService: StudentService
     ) {}
 
     ngOnInit() {
         this.initForm();
+        this.loadStudents();
     }
 
     initForm() {
@@ -83,5 +88,14 @@ export class CreateModal implements OnInit {
         };
 
         return exam;
+    }
+
+    loadStudents() {
+        this.studentService.getStudents().subscribe({
+            next: (data) => {
+              this.students = data;
+            },
+            error: (error) => console.error('Erreur lors de la récupération des étudiants', error)
+        });
     }
 }
