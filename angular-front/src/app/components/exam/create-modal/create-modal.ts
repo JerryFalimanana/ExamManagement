@@ -8,6 +8,7 @@ import { ExamService } from '../../../services/exam-service';
 import { HttpClientModule } from '@angular/common/http';
 import { Student } from '../../../interfaces/Student';
 import { StudentService } from '../../../services/student-service';
+import { Examen } from '../../../interfaces/Examen';
 
 enum FormField {
     student = 'student',
@@ -30,7 +31,7 @@ enum FormField {
 })
 export class CreateModal implements OnInit {
     @Output() cancel = new EventEmitter<void>();
-    @Output() confirm = new EventEmitter<void>();
+    @Output() confirm = new EventEmitter<Examen>();
     today = new Date().toISOString().split('T')[0];
 
     examForm!: FormGroup<ExamForm>;
@@ -67,8 +68,8 @@ export class CreateModal implements OnInit {
 
         this.examService.createExam(examen)
             .subscribe({
-              next: () => {
-                  this.confirm.emit();
+              next: (createdExam) => {
+                  this.confirm.emit(createdExam);
               }
           });
     }

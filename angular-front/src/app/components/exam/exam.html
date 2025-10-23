@@ -10,22 +10,22 @@
         <div class="w-full p-0 m-0 mt-5 grid grid-cols-4 gap-5">
             <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
                 <h3>Confirmé</h3>
-                <span class="text-[34px] text-green-400">28</span>
+                <span class="text-[34px] text-green-400">{{ totals().confirmed }}</span>
                 <span class="material-symbols-outlined text-green-400 float-right" style="font-size: 40px;">task_alt</span>
             </div>
             <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
                 <h3>À organiser</h3>
-                <span class="text-[34px] text-orange-400">28</span>
+                <span class="text-[34px] text-orange-400">{{ totals().toOrganize }}</span>
                 <span class="material-symbols-outlined text-orange-400 float-right" style="font-size: 40px;">list_alt</span>
             </div>
             <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
                 <h3>Annulé</h3>
-                <span class="text-[34px] text-red-400">28</span>
+                <span class="text-[34px] text-red-400">{{ totals().cancelled }}</span>
                 <span class="material-symbols-outlined text-red-400 float-right" style="font-size: 40px;">close</span>
             </div>
             <div class="h-30 border border-gray-400 rounded-lg p-5 text-gray-500 font-semibold">
                 <h3>En recherche de place</h3>
-                <span class="text-[34px] text-blue-400">28</span>
+                <span class="text-[34px] text-blue-400">{{ totals().inSearch }}</span>
                 <span class="material-symbols-outlined text-blue-400 float-right" style="font-size: 40px;">schedule</span>
             </div>
         </div>
@@ -35,7 +35,7 @@
             Mes examens
         </h2>
         <p>
-            7 examens à venir
+            {{ totals().confirmed }} examens à venir
         </p>
     </div>
     <div class="w-1/2 inline-block">
@@ -46,7 +46,7 @@
     <div class="max-h-100 overflow-y-auto mt-5">
         <table class="min-w-full">
             <tbody>
-                <tr *ngFor="let exam of examens" class="h-[75px] border border-gray-400 rounded-lg flex items-center px-10 text-gray-600 mb-2">
+                <tr *ngFor="let exam of examens()" class="h-[75px] border border-gray-400 rounded-lg flex items-center px-10 text-gray-600 mb-2">
                     <td class="flex items-center gap-2 w-[20%]">
                         <span class="material-symbols-outlined">person</span>
                         {{ exam.student.name }}
@@ -63,28 +63,30 @@
                         <span class="material-symbols-outlined">history_toggle_off</span>
                         {{ exam.timeString }}
                     </td>
-                    <td class="flex items-center gap-2 w-[20%]"
-                        [ngClass]="{
-                            'text-green-600': exam.status === 'Confirmé',
-                            'text-orange-600': exam.status === 'À organiser',
-                            'text-red-600': exam.status === 'Annulé',
-                            'text-gray-600': exam.status === 'En recherche de place'
-                        }"
-                    >
-                        <span class="material-symbols-outlined">
-                            {{ getStatusIcon(exam.status) }}
-                        </span>
-
-                        <select 
-                            class="appearance-none bg-transparent border-0 text-sm px-2 py-1 focus:outline-none"
-                            [value]="exam.status"
-                            (change)="onStatusChange(exam, $event)"
+                    <td class="flex items-center gap-2 w-[20%]">
+                        <div class="rounded-2xl flex align-center pl-3 pt-1"
+                            [ngClass]="{
+                                'text-green-600 bg-green-100': exam.status === 'Confirmé',
+                                'text-orange-600 bg-orange-100': exam.status === 'À organiser',
+                                'text-red-600 bg-red-100': exam.status === 'Annulé',
+                                'text-gray-600 bg-gray-100': exam.status === 'En recherche de place'
+                            }"
                         >
-                            <option class="text-green-600" value="Confirmé">Confirmé</option>
-                            <option class="text-orange-600" value="À organiser">À organiser</option>
-                            <option class="text-red-600" value="Annulé">Annulé</option>
-                            <option class="text-gray-600" value="En recherche de place">En recherche de place</option>
-                        </select>
+                            <span class="material-symbols-outlined">
+                                {{ getStatusIcon(exam.status) }}
+                            </span>
+
+                            <select 
+                                class="appearance-none bg-transparent border-0 text-sm px-2 py-1 focus:outline-none"
+                                [value]="exam.status"
+                                (change)="onStatusChange(exam, $event)"
+                            >
+                                <option class="text-green-600" value="Confirmé">Confirmé</option>
+                                <option class="text-orange-600" value="À organiser">À organiser</option>
+                                <option class="text-red-600" value="Annulé">Annulé</option>
+                                <option class="text-gray-600" value="En recherche de place">En recherche de place</option>
+                            </select>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -94,7 +96,7 @@
 
 <app-create-modal
     *ngIf="isModalOpen"
-    (confirm)="onConfirm()"
+    (confirm)="onConfirm($event)"
     (cancel)="onCancel()"
 >
 </app-create-modal>
