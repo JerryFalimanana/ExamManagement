@@ -5,9 +5,10 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Examen } from '../interfaces/Examen';
 import { ExamenApiResponse } from '../interfaces/ExamenApiResponse';
+import { Environment } from '../environments/Environment';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class ExamService {
     constructor(
@@ -20,7 +21,7 @@ export class ExamService {
         });
 
         return this.httpClient.post(
-            'http://localhost:8000/api/exams',
+            Environment.apiBack + '/api/exams',
             exam,
             {
                 headers,
@@ -29,7 +30,21 @@ export class ExamService {
     }
     
     getExamens(): Observable<Examen[]> {
-        return this.httpClient.get<ExamenApiResponse>('http://localhost:8000/api/exams')
+        return this.httpClient.get<ExamenApiResponse>(Environment.apiBack + '/api/exams')
             .pipe(map(response => response.member));
+    }
+
+    updateExamStatus(id: string, status: string) {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+        });
+
+        return this.httpClient.patch(
+            Environment.apiBack + `/api/exams/${id}`,
+            { status },
+            {
+                headers,
+            },
+        );
     }
 }

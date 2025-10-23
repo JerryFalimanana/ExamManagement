@@ -26,7 +26,9 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
         ),
         new Get(),
         new Delete(),
-        new Patch(),
+        new Patch(
+            formats: ['json' => ['application/json']]
+        ),
     ],
     normalizationContext: ['groups' => ['exam:read']]
 )]
@@ -36,6 +38,7 @@ class Exam
     #[ORM\Column(type: UuidType::NAME, unique: true)]
     #[ORM\GeneratedValue(strategy: 'CUSTOM')]
     #[ORM\CustomIdGenerator(class: UuidGenerator::class)]
+    #[Groups(['exam:read'])]
     private ?Uuid $id;
 
     #[ORM\ManyToOne]

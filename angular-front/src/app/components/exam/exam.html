@@ -1,10 +1,8 @@
-                <span class="material-symbols-outlined">hardware</span>
-                <span class="material-symbols-outlined">check</span>
-<button (click)="logout()" class="float-right mt-10 mr-10 text-gray-500">
+<button (click)="logout()" class="float-right mt-2 mr-10 text-gray-500">
     <span class="material-symbols-outlined" style="font-size: 30px;">exit_to_app</span>
 </button>
 
-<div class="w-3/4 p-0 mt-2 mx-auto">
+<div class="w-3/4 p-0 mt-10 mx-auto">
     <div class="w-2/3 m-0 p-0 mx-auto border border-gray-400 rounded-lg p-5 mb-10">
         <h2 class="text-3xl font-semibold text-center">
             Statictiques des examens
@@ -45,7 +43,7 @@
             Organiser un examen
         </button>
     </div>
-    <div class="max-h-130 overflow-y-auto mt-5">
+    <div class="max-h-100 overflow-y-auto mt-5">
         <table class="min-w-full">
             <tbody>
                 <tr *ngFor="let exam of examens" class="h-[75px] border border-gray-400 rounded-lg flex items-center px-10 text-gray-600 mb-2">
@@ -76,7 +74,17 @@
                         <span class="material-symbols-outlined">
                             {{ getStatusIcon(exam.status) }}
                         </span>
-                        {{ exam.status }}
+
+                        <select 
+                            class="appearance-none bg-transparent border-0 text-sm px-2 py-1 focus:outline-none"
+                            [value]="exam.status"
+                            (change)="onStatusChange(exam, $event)"
+                        >
+                            <option class="text-green-600" value="Confirmé">Confirmé</option>
+                            <option class="text-orange-600" value="À organiser">À organiser</option>
+                            <option class="text-red-600" value="Annulé">Annulé</option>
+                            <option class="text-gray-600" value="En recherche de place">En recherche de place</option>
+                        </select>
                     </td>
                 </tr>
             </tbody>

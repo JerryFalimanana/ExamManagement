@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { TokenService } from '../../services/token-service';
 import { Router } from '@angular/router';
 import { Examen } from '../../interfaces/Examen';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'app-exam',
@@ -13,7 +14,8 @@ import { Examen } from '../../interfaces/Examen';
     imports: [
       CreateModal,
       CommonModule,
-      HttpClientModule
+      HttpClientModule,
+      FormsModule
     ],
     templateUrl: './exam.html',
     styleUrl: './exam.scss'
@@ -38,6 +40,7 @@ export class Exam implements OnInit {
 
     onConfirm() {
       this.isModalOpen = false;
+      this.loadExams();
     }
 
     onCancel() {
@@ -52,7 +55,7 @@ export class Exam implements OnInit {
     loadExams() {
         this.examService.getExamens().subscribe({
             next: (data) => {
-                this.examens = data;console.log(data);
+                this.examens = data;
             },
             error: (error) => console.error(error)
         });
@@ -69,5 +72,17 @@ export class Exam implements OnInit {
             default:
                 return 'hourglass_top';
         }
+    }
+
+    onStatusChange(exam: Examen, event: Event) {
+        const select = event.target as HTMLSelectElement;
+        const newStatus = select.value;
+
+        exam.status = newStatus;
+
+        this.examService.updateExamStatus(exam.id, newStatus).subscribe({
+            next: () => console.log('Statut mis à jour avec succès'),
+            error: (err) => console.error('Erreur de mise à jour du statut', err)
+        });
     }
 }
