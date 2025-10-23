@@ -8,6 +8,7 @@ use ApiPlatform\Metadata\ApiResource;
 use App\Repository\StudentRepository;
 use ApiPlatform\Metadata\GetCollection;
 use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 
 #[ORM\Entity(repositoryClass: StudentRepository::class)]
@@ -25,6 +26,7 @@ class Student
     private ?Uuid $id;
 
     #[ORM\Column(length: 255)]
+    #[Groups(['exam:read'])]
     private ?string $name = null;
 
     public function getId(): ?Uuid

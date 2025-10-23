@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ExamService } from '../../services/exam-service';
 import { CreateModal } from './create-modal/create-modal';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { TokenService } from '../../services/token-service';
 import { Router } from '@angular/router';
+import { Examen } from '../../interfaces/Examen';
 
 @Component({
     selector: 'app-exam',
@@ -17,14 +18,19 @@ import { Router } from '@angular/router';
     templateUrl: './exam.html',
     styleUrl: './exam.scss'
 })
-export class Exam {
+export class Exam implements OnInit {
+    isModalOpen = false;
+    examens: Examen[] = [];
+    
     constructor(
         private examService: ExamService,
         private tokenService: TokenService,
         private router: Router,
     ) {}
 
-    isModalOpen = false;
+    ngOnInit() {
+        this.loadExams();
+    }
 
     openModal() {
       this.isModalOpen = true;
@@ -41,5 +47,27 @@ export class Exam {
     async logout() {
         await this.tokenService.clearToken();
         this.router.navigate(['/login']);
+    }
+
+    loadExams() {
+        this.examService.getExamens().subscribe({
+            next: (data) => {
+                this.examens = data;console.log(data);
+            },
+            error: (error) => console.error(error)
+        });
+    }
+
+    getStatusIcon(status: string): string {
+        switch (status) {
+            case 'Confirmé':
+                return 'check';
+            case 'À organiser':
+                return 'hardware';
+            case 'Annulé':
+                return 'close';
+            default:
+                return 'hourglass_top';
+        }
     }
 }

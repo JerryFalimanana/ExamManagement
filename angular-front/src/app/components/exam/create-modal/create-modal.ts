@@ -67,7 +67,7 @@ export class CreateModal implements OnInit {
         this.examService.createExam(examen)
             .subscribe({
               next: () => {
-                
+                  this.cancel.emit();
               }
           });
     }

@@ -10,11 +10,11 @@ import { StudentApiResponse } from '../interfaces/StudentApiResponse';
 })
 export class StudentService {
     constructor(
-        private http: HttpClient
+        private httpClient: HttpClient
     ) {}
 
     getStudents(): Observable<Student[]> {
-        return this.http.get<StudentApiResponse>('http://localhost:8000/api/students')
+        return this.httpClient.get<StudentApiResponse>('http://localhost:8000/api/students')
             .pipe(map(response => response.member));
     }
 }

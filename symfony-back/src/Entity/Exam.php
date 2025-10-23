@@ -14,6 +14,7 @@ use App\Repository\ExamRepository;
 use ApiPlatform\Metadata\ApiResource;
 use ApiPlatform\Metadata\GetCollection;
 use Symfony\Bridge\Doctrine\Types\UuidType;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
 
 #[ORM\Entity(repositoryClass: ExamRepository::class)]
@@ -26,7 +27,8 @@ use Symfony\Bridge\Doctrine\IdGenerator\UuidGenerator;
         new Get(),
         new Delete(),
         new Patch(),
-    ]
+    ],
+    normalizationContext: ['groups' => ['exam:read']]
 )]
 class Exam
 {
@@ -38,18 +40,23 @@ class Exam
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
+    #[Groups(['exam:read'])]
     private ?Student $student = null;
 
     #[ORM\Column(length: 255, nullable: true)]
+    #[Groups(['exam:read'])]
     private ?string $location = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups(['exam:read'])]
     private ?\DateTime $date = null;
 
     #[ORM\Column(type: Types::TIME_MUTABLE)]
+    #[Groups(['exam:read'])]
     private ?\DateTime $time = null;
 
     #[ORM\Column(enumType: ExamStatus::class)]
+    #[Groups(['exam:read'])]
     private ?ExamStatus $status = null;
 
     public function getId(): ?Uuid
@@ -96,6 +103,12 @@ class Exam
     public function getTime(): ?\DateTime
     {
         return $this->time;
+    }
+
+    #[Groups(['exam:read'])]
+    public function getTimeString(): ?string
+    {
+        return $this->time?->format('H:i');
     }
 
     public function setTime(\DateTime $time): static
