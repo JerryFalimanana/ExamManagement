@@ -10,11 +10,11 @@ Launch docker : <code>docker-compose up -d</code>
 
 Create user : 
 
-    <code>cd symfony-back</code>
+    cd symfony-back
 
-    <code>docker exec -it exammanagement_backend_1 bash</code>
-    <code>php bin/console app:create_user --e 'email-de-user@mail.com' --p 'password'</code>
+    docker exec -it exammanagement_backend_1 bash
+    php bin/console app:create_user --e 'email-de-user@mail.com' --p 'password'
     Create students :
-        <code>php bin/console app:create_student --n 'Student name'</code>
+        php bin/console app:create_student --n 'Student name'
 
 Go to : http://localhost:4200/
